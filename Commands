@@ -1,0 +1,5 @@
+
+
+mvn clean
+mvn clean install -DskipTests
+mvn dependency:copy-dependencies -DoutputDirectory=${project.build.directory}/lib
