@@ -3,3 +3,28 @@
 mvn clean
 mvn clean install -DskipTests
 mvn dependency:copy-dependencies -DoutputDirectory=${project.build.directory}/lib
+
+To up and run the docker copose	docker-compose up
+To check if its running	localhost:4444
+To bring it down	docker-compose down
+Setup Driver	@BeforeTest
+	public void setupDriver(ITestContext ctx) throws MalformedURLException {
+
+	    MutableCapabilities dc = new ChromeOptions();
+	    dc.setCapability("version","");
+	    driver= new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),dc);
+
+
+	}
+
+To increase chrome 	docker-compose up -d --scale chrome=4
+To check no of container 	docker-compose ps
+
+Run test from jar	java -cp ooxcc-docker.jar;ooxcc-docker-tests.jar;dependency/* org.testng.TestNG ../Testing.xml
+To Build Docker Images	docker build -t=shariarahmed/ooxccdocker .
+To go to inside docker container	docker run -it --entrypoint=/bin/sh shariarahmed/ooxccdocker
+Comman for volumn Mapping	docker run -it --entrypoint=/bin/sh -v G:\Intellij\ooxcc\output oxccDocker/output shariarahmed/ooxccdockerdocker
+Copy Dependency 	mvn dependency:copy-dependencies -DoutputDirectory=${project.build.directory}/dependency
+	java -cp ooxcc-docker.jar:ooxcc-docker-tests.jar:lib/* -DHUB_HOST=192.168.1.173 org.testng.TestNG Testing.xml
+From Windows/Mac Command Prompt	docker run  shariarahmed/ooxccdocker
+From inside the container 	java -cp ooxcc-docker.jar:ooxcc-docker-tests.jar:dependency/* org.testng.TestNG Testing.xml
