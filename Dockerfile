@@ -1,5 +1,7 @@
 FROM openjdk:19-jdk-alpine3.16
 
+RUN apk add curl jq
+
 #Workspace
 WORKDIR /oxccDocker
 
@@ -11,6 +13,8 @@ ADD target/dependency               dependency
 
 #ADD SUITE
 ADD Testing.xml                     Testing.xml
+ADD healthcheck.sh                  healthcheck.sh
+RUN dos2unix healthcheck.sh
 
 #make sure that local host ip address is at the @BeforeTEst class
-ENTRYPOINT java -cp ooxcc-docker.jar:ooxcc-docker-tests.jar:dependency/* org.testng.TestNG Testing.xml
+ENTRYPOINT sh healthcheck.sh
