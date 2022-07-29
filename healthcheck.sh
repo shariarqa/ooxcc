@@ -6,7 +6,7 @@
 
 echo "Checking if hub is ready - $HUB_HOST"
 
-while [ "$( curl -s http://172.17.0.1:4444/wd/hub/status | jq -r .value.ready )" != "true" ]
+while [ "$( curl -s http://localhost:4444/wd/hub/status | jq -r .value.ready )" != "true" ]
 do
 	sleep 1
 done
